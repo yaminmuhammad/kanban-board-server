@@ -35,3 +35,57 @@ app.get("/api", (req, res) => {
 http.listen(PORT, () => {
   console.log(`Server listening on ${PORT}`);
 });
+
+// Generate a random string
+const fetchID = () => Math.random().toString(36).substring(2, 10);
+
+// Nested Object
+let tasks = {
+  pending: {
+    title: "pending",
+    items: [
+      {
+        id: fetchID(),
+        title: "Send the Figma file to Dima",
+        comments: [],
+      },
+    ],
+  },
+  ongoing: {
+    title: "ongoing",
+    items: [
+      {
+        id: fetchID(),
+        title: "Review Github issues",
+        comments: [
+          {
+            name: "David",
+            text: "Ensure you review before merging",
+            id: fetchID(),
+          },
+        ],
+      },
+    ],
+  },
+  completed: {
+    title: "completed",
+    items: [
+      {
+        id: fetchID(),
+        title: "Create technical contents",
+        comments: [
+          {
+            name: "Dima",
+            text: "Make sure you check the requirements",
+            id: fetchID(),
+          },
+        ],
+      },
+    ],
+  },
+};
+
+// host the task object via the /api route
+app.get("/api", (req, res) => {
+  res.json(tasks);
+});
